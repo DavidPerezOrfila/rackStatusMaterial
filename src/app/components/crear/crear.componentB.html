@@ -1,0 +1,44 @@
+<div class="jumbotron mt-5" style="background-color:#f5f3ea">
+    <div *ngIf="enviado" class="alert alert-success">
+        <p> {{ mensaje }}</p>
+        <button type="button" class="btn btn-dark" (click)="goBack()" style="background-color: #639ea9">Atrás</button>
+    </div>
+    <div class="container" [hidden]="enviado">
+        <form class="col" #addRackForm="ngForm">
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="inputHost" class="badge badge-dark" style="background-color: #639ea9">Nombre del Host</label>
+                    <input type="text" class="form-control" id="inputHost" placeholder="" required [(ngModel)]="rack.host" name="host" #host="ngModel" minlength="3">
+                    <div *ngIf="host.invalid && (host.dirty || host.touched)" class="badge alert-danger">
+                        <p>El nombre es necesario</p>
+                    </div>
+                    <div *ngIf="host.invalid && host?.errors.minlength" class="badge alert-danger">
+                        <p> como mínimo {{ host?.errors.minlength.requiredLength}} carácteres</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col form-inline">
+                    <label for="inputLat" class="badge badge-dark mr-2" style="background-color: #639ea9">Latitud</label>
+                    <input type="number" class="form-control col-2 mr-2" id="inputLat" placeholder="" required [(ngModel)]="rack.lat" name="lat" #lat="ngModel">
+                    <div *ngIf="lat.invalid && (lat.dirty || lat.touched)" class="badge alert-danger mr-2">
+                        <p>Este campo es necesario</p>
+                    </div>
+                    <label for="inputLng" class="badge badge-dark ml-4" style="background-color: #639ea9">Longitud</label>
+                    <input type="number" class="form-control col-2 mr-2" id="inputLat" placeholder="" required [(ngModel)]="rack.lng" name="lng" #lng="ngModel">
+                    <div *ngIf="lng.invalid && (lng.dirty || lng.touched)" class="badge alert-danger">
+                        <p>Este campo es necesario</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <form class="form-inline ml-1">
+                    <button type="button" class="btn btn-dark" (click)="goBack()" style="background-color: #639ea9">Atrás</button>
+                    <button type="button" class="btn btn-dark" (click)="addRack()" style="background-color: #639ea9" [disabled]="!addRackForm.form.valid">Añadir</button>
+                    <!-- <button type="button" class="btn btn-dark" (click)="update()" [disabled]="!rackForm.form.valid" style="background-color: #639ea9">Editar</button>
+                    <button type="button" class="btn btn-dark" (click)="delete()" style="background-color: #639ea9">Borrar</button> -->
+                </form>
+            </div>
+        </form>
+    </div>
+</div>

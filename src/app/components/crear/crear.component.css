@@ -1,0 +1,17 @@
+.title {
+  background-color: #639ea9;
+}
+.card {
+  background-color: #fdd17d;
+  width: 80%;
+  margin-top: 100px !important;
+  margin: auto;
+}
+.card-content {
+  background-color: #f5f3ea;
+  margin: auto;
+}
+
+.full-fill {
+  width: 50%;
+}

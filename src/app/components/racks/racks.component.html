@@ -1,0 +1,68 @@
+<div class="mat-elevation-z8">
+  <mat-card class="card">
+    <table
+      mat-table
+      matSort
+      [dataSource]="racks"
+      class="mat-elevation-z8 card-content"
+    >
+      <!--
+        - Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition"
+      -->
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">
+          <a
+            [routerLink]="['/racks', element.id | json]"
+            style="color:#639ea9"
+            >{{ element.id }}</a
+          >
+        </td>
+      </ng-container>
+
+      <!-- Host Column -->
+      <ng-container matColumnDef="host">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Host</th>
+        <td mat-cell *matCellDef="let element">{{ element.host }}</td>
+      </ng-container>
+
+      <!-- Latitud Column -->
+      <ng-container matColumnDef="lat">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Latitud</th>
+        <td mat-cell *matCellDef="let element">{{ element.lat }}</td>
+      </ng-container>
+
+      <!-- Longitud Column -->
+      <ng-container matColumnDef="lng">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Longitud</th>
+        <td mat-cell *matCellDef="let element">{{ element.lng }}</td>
+      </ng-container>
+      <!-- Icono Column -->
+      <ng-container matColumnDef="ico">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Icono</th>
+        <td mat-cell *matCellDef="let element">{{ element.ico }}</td>
+      </ng-container>
+      <!-- Imagen Column -->
+      <ng-container matColumnDef="img">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Imagen</th>
+        <td mat-cell *matCellDef="let element">{{ element.img }}</td>
+      </ng-container>
+      <!-- Info Column -->
+      <ng-container matColumnDef="info">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>Info</th>
+        <td mat-cell *matCellDef="let element">{{ element.info }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </mat-card>
+</div>

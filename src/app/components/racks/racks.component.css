@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+th {
+  text-align: justify;
+}
+.card {
+  background-color: #fdd17d;
+  margin: auto;
+}
+.card-content {
+  background-color: #f5f3ea;
+  margin: auto;
+}

@@ -1,0 +1,47 @@
+<div class="row mt-3 p-0">
+  <div class="container-fluid card-body" style="background-color:#f5f3ea">
+    <h3
+      class="text-center card-title"
+      style="background-color: #639ea9; color: #f5f3ea"
+    >
+      Listado racks
+    </h3>
+    <div class="table-responsive">
+      <table
+        class="table-bordered table-striped text-center"
+        style="background-color: #fff"
+      >
+        <thead>
+          <tr style="background-color: #639ea9; color: #f5f3ea">
+            <th>ID</th>
+            <th>Host</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+            <th>Ico</th>
+            <th>Img</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of (racks | keyvalue)">
+            <td>
+              <a
+                [routerLink]="['/racks', item.value.id | json]"
+                style="color:#639ea9"
+                >{{ item.value.id | json }}</a
+              >
+            </td>
+            <td>{{ item.value.host | json }}</td>
+            <td>{{ item.value.lat | json }}</td>
+            <td>{{ item.value.lng | json }}</td>
+            <td>{{ item.value.ico | json }}</td>
+            <td>
+              <small>{{ item.value.img | json }}</small>
+            </td>
+            <td>{{ item.value.info | json }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
