@@ -1,43 +1,25 @@
 <div class="jumbotron mt-5" style="background-color:#f5f3ea">
-  <div class="container" [hidden]="enviado">
-    <h4>
-      <span
-        class="badge badge-pill badge-dark ml-3 mb-2"
-        style="background-color: #639ea9"
-        >ID: {{ rack.id }}</span
-      >
-    </h4>
-    <form
-      class="col"
-      #updateRackForm="ngForm"
-      (submit)="update(updateRackForm)"
-    >
-      <div class="form-row">
-        <div class="form-group col">
-          <label
-            for="inputHost"
-            class="badge badge-dark"
-            style="background-color: #639ea9"
-            >Nombre del Host</label
+    <div class="container" [hidden]="enviado">
+        <h4>
+            <span class="badge badge-pill badge-dark ml-3 mb-2" style="background-color: #639ea9">ID: {{ rack.id }}</span>
+        </h4>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="inputHost" class="badge badge-dark" style="background-color: #639ea9">Nombre del Host</label
           >
           <input
             type="text"
             class="form-control"
             placeholder=""
             required
-            [(ngModel)]="rack.host"
-            name="host"
-            #host="ngModel"
-            minlength="3"
           />
           <div
-            *ngIf="host.invalid && (host.dirty || host.touched)"
             class="alert alert-danger"
           >
             El nombre es necesario
           </div>
-          <div *ngIf="host.invalid && host?.errors.minlength">
-            como mínimo {{ host?.errors.minlength.requiredLength }} carácteres
+          <div>
+            <!-- como mínimo {{ host?.errors.minlength.requiredLength }} carácteres -->
           </div>
         </div>
         <div class="form-group col form-inline mt-3 my-1">
@@ -52,13 +34,8 @@
             class="form-control col-4 "
             id="inputLat"
             placeholder=""
-            required
-            [(ngModel)]="rack.lat"
-            name="lat"
-            #lat="ngModel"
           />
           <div
-            *ngIf="lat.invalid && (lat.dirty || lat.touched)"
             class="alert alert-danger mr-2"
           >
             Este campo es necesario
@@ -73,14 +50,8 @@
             type="number"
             class="form-control col-4"
             id="inputLat"
-            placeholder=""
-            required
-            [(ngModel)]="rack.lng"
-            name="lng"
-            #lng="ngModel"
-          />
+            placeholder=""/>
           <div
-            *ngIf="lng.invalid && (lng.dirty || lng.touched)"
             class="alert alert-danger"
           >
             Este campo es necesario
@@ -93,15 +64,11 @@
             <input
               type="file"
               name="archivo"
-              ngModel
-              required
-              #archivo="ngModel"
               (change)="onFileSelected($event.target.files[0])"
             />
           </div>
         </div>
         <div
-          *ngIf="archivo.invalid && (archivo.dirty || archivo.touched)"
           class="alert alert-danger col-6 mb-2"
         >
           <p><small> No ha seleccionado ninguna imagen </small></p>
@@ -142,6 +109,5 @@
           </button>
         </div>
       </div>
-    </form>
   </div>
 </div>

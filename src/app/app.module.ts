@@ -1,4 +1,4 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -42,7 +42,6 @@ import { KeyValuePipe } from './key-value.pipe';
     RouterModule.forRoot(APP_Routes),
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatTableModule,

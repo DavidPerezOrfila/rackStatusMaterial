@@ -1,99 +1,55 @@
 <mat-card class="card">
-  <mat-card-title style="text-align:center; color: #f5f3ea" class="title">
-    Nuevo Rack</mat-card-title
-  >
-  <mat-card-content>
-    <div *ngIf="enviado" class="alert alert-success">
-      <p>{{ mensaje }}</p>
-      <button mat-raised-button color="warn" type="button" (click)="goBack()">
+    <mat-card-title style="text-align:center; color: #f5f3ea" class="title">
+        Nuevo Rack</mat-card-title>
+    <mat-card-content>
+        <div *ngIf="enviado" class="alert alert-success">
+            <p>{{ mensaje }}</p>
+            <button mat-raised-button color="warn" type="button" (click)="goBack()">
         Atrás
       </button>
-    </div>
-    <div [hidden]="enviado">
-      <mat-card class="card-content">
-        <form #addRackForm="ngForm">
-          <div>
-            <div>
-              <mat-form-field class="full-fill">
-                <input
-                  matInput
-                  type="text"
-                  placeholder="Nombre del Host"
-                  required
-                  [(ngModel)]="rack.host"
-                  name="host"
-                  #host="ngModel"
-                  minlength="3"
-                />
-                <div *ngIf="host.invalid && (host.dirty || host.touched)">
-                  <p>El nombre es necesario</p>
-                </div>
-                <div *ngIf="host.invalid && host?.errors.minlength">
-                  <p>
-                    como mínimo
-                    {{ host?.errors.minlength.requiredLength }} carácteres
-                  </p>
-                </div>
-              </mat-form-field>
-            </div>
-          </div>
-          <div>
-            <div>
-              <mat-form-field>
-                <input
-                  matInput
-                  type="number"
-                  placeholder="Latitud"
-                  required
-                  [(ngModel)]="rack.lat"
-                  name="lat"
-                  #lat="ngModel"
-                />
-                <div *ngIf="lat.invalid && (lat.dirty || lat.touched)">
-                  <p>Este campo es necesario</p>
-                </div>
-              </mat-form-field>
-              <div>
-                <mat-form-field>
-                  <input
-                    matInput
-                    type="number"
-                    placeholder="Longitud"
-                    required
-                    [(ngModel)]="rack.lng"
-                    name="lng"
-                    #lng="ngModel"
-                  />
-                  <div *ngIf="lng.invalid && (lng.dirty || lng.touched)">
-                    <p>Este campo es necesario</p>
-                  </div>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div>
-            <form>
-              <button
-                mat-raised-button
-                color="warn"
-                type="button"
-                (click)="goBack()"
-              >
-                Atrás
-              </button>
-              <button
-                mat-raised-button
-                color="primary"
-                type="button"
-                (click)="addRack()"
-                [disabled]="!addRackForm.form.valid"
-              >
-                Añadir
-              </button>
-            </form>
-          </div>
-        </form>
-      </mat-card>
-    </div>
-  </mat-card-content>
+        </div>
+        <div [hidden]="enviado">
+            <mat-card class="card-content">
+                <form [formGroup]="form" (submit)="addRack()">
+                    <div>
+                        <div>
+                            <mat-form-field class="full-fill">
+                                <input matInput type="text" placeholder="Nombre del Host" formControlName="host" />
+                                <mat-error *ngIf="form.get('host').invalid">El nombre del host es obligatorio</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput type="number" placeholder="Latitud" formControlName="lat" />
+                            <mat-error *ngIf="form.get('lat').invalid">El campo es obligatorio</mat-error>
+                        </mat-form-field>
+                        <div>
+                            <mat-form-field>
+                                <input matInput type="number" placeholder="Longitud" formControlName="lng" />
+                                <mat-error *ngIf="form.get('lng').invalid">El campo es obligatorio</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <br>
+                        <button mat-stroked-button type="button" (click)="filePicker.click()">Seleccionar imagen</button>
+                        <input type="file" #filePicker (change)="onImagePicked($event)" />
+                        <br>
+                    </div>
+                    <br>
+                    <div class="image-preview" *ngIf="imgPreview !== '' && imgPreview"><img [src]="imgPreview" [alt]="form.value.host"></div>
+                    <div>
+                    </div>
+                    <br>
+                    <div>
+                        <button mat-raised-button color="warn" type="button" (click)="goBack()">
+                      Atrás
+                    </button>
+                        <button mat-raised-button color="primary" type="submit">
+                      Añadir
+                    </button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </mat-card-content>
 </mat-card>
