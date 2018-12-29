@@ -3,18 +3,19 @@ import { Rack } from './../shared/models/rack';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-editar',
   templateUrl: './editar.component.html',
-  styles: []
+  styleUrls: ['./editar.component.css']
 })
 export class EditarComponent implements OnInit {
   rack = new Rack();
   enviado = false;
   mensaje: string;
-  envFoto = false;
-  archivo: File;
+  form: FormGroup;
+  imgPreview: string;
 
   constructor(
     private rackService: RackService,
@@ -25,6 +26,19 @@ export class EditarComponent implements OnInit {
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get(`id`);
     this.rackService.getRack(id).subscribe(data => (this.rack = data));
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ archivo: file });
+    this.form.get('archivo').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imgPreview = <string>reader.result;
+    };
+    reader.readAsDataURL(file);
+    console.log(file);
+    console.log(this.form);
   }
 
   update(): void {
@@ -39,16 +53,6 @@ export class EditarComponent implements OnInit {
     this.rackService
       .borraRack(this.rack.id)
       .subscribe(() => (this.mensaje = 'Host borrado correctamente'));
-  }
-
-  onFileSelected(file: File) {
-    if (!file) {
-      this.archivo = null;
-      return;
-    }
-    this.archivo = file;
-    console.log(this.archivo);
-    return this.archivo;
   }
 
   goBack(): void {

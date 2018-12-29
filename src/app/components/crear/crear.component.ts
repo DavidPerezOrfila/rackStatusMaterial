@@ -3,7 +3,7 @@ import { Rack } from './../shared/models/rack';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { mimeType } from './mimetype.validator';
 
 @Component({
   selector: 'app-crear',
@@ -17,11 +17,7 @@ export class CrearComponent implements OnInit {
   form: FormGroup;
   imgPreview: string;
 
-  constructor(
-    private rackService: RackService,
-    private location: Location,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private rackService: RackService, private location: Location) {}
 
   nouRack(): void {
     this.enviado = false;
@@ -45,10 +41,14 @@ export class CrearComponent implements OnInit {
   }
 
   private save(): void {
-    this.rack.host = this.form.value.host;
-    this.rack.lat = this.form.value.lat;
-    this.rack.lng = this.form.value.lng;
-    this.rackService.crearRack(this.rack).subscribe();
+    this.rackService
+      .addRack(
+        this.form.value.host,
+        this.form.value.lat,
+        this.form.value.lng,
+        this.form.value.archivo
+      )
+      .subscribe();
   }
 
   onImagePicked(event: Event) {
@@ -60,6 +60,8 @@ export class CrearComponent implements OnInit {
       this.imgPreview = <string>reader.result;
     };
     reader.readAsDataURL(file);
+    console.log(file);
+    console.log(this.form);
   }
 
   ngOnInit() {
@@ -74,7 +76,8 @@ export class CrearComponent implements OnInit {
         validators: [Validators.required]
       }),
       archivo: new FormControl(null, {
-        validators: [Validators.required]
+        validators: [Validators.required],
+        asyncValidators: [mimeType]
       })
     });
   }

@@ -36,7 +36,7 @@
                         <br>
                     </div>
                     <br>
-                    <div class="image-preview" *ngIf="imgPreview !== '' && imgPreview"><img [src]="imgPreview" [alt]="form.value.host"></div>
+                    <div class="image-preview" *ngIf="imgPreview !== '' && imgPreview && form.get('archivo').valid"><img [src]="imgPreview" [alt]="form.value.host"></div>
                     <div>
                     </div>
                     <br>

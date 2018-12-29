@@ -1,113 +1,50 @@
-<div class="jumbotron mt-5" style="background-color:#f5f3ea">
-    <div class="container" [hidden]="enviado">
-        <h4>
-            <span class="badge badge-pill badge-dark ml-3 mb-2" style="background-color: #639ea9">ID: {{ rack.id }}</span>
-        </h4>
-        <div class="form-row">
-            <div class="form-group col">
-                <label for="inputHost" class="badge badge-dark" style="background-color: #639ea9">Nombre del Host</label
-          >
-          <input
-            type="text"
-            class="form-control"
-            placeholder=""
-            required
-          />
-          <div
-            class="alert alert-danger"
-          >
-            El nombre es necesario
-          </div>
-          <div>
-            <!-- como mínimo {{ host?.errors.minlength.requiredLength }} carácteres -->
-          </div>
+<mat-card class="card">
+    <mat-card-title style="text-align:center; color: #f5f3ea" class="title">
+        Nuevo Rack</mat-card-title>
+    <mat-card-content>
+        <div *ngIf="enviado" class="alert alert-success">
+            <p>{{ mensaje }}</p>
+            <button mat-raised-button color="warn" type="button" (click)="goBack()">
+        Atrás
+      </button>
         </div>
-        <div class="form-group col form-inline mt-3 my-1">
-          <label
-            for="inputLat"
-            class="badge badge-dark mr-2"
-            style="background-color: #639ea9"
-            >Latitud</label
-          >
-          <input
-            type="number"
-            class="form-control col-4 "
-            id="inputLat"
-            placeholder=""
-          />
-          <div
-            class="alert alert-danger mr-2"
-          >
-            Este campo es necesario
-          </div>
-          <label
-            for="inputLng"
-            class="badge badge-dark ml-4 mr-2"
-            style="background-color: #639ea9"
-            >Longitud</label
-          >
-          <input
-            type="number"
-            class="form-control col-4"
-            id="inputLat"
-            placeholder=""/>
-          <div
-            class="alert alert-danger"
-          >
-            Este campo es necesario
-          </div>
+        <div [hidden]="enviado">
+            <mat-card class="card-content">
+                <form [formGroup]="form" (submit)="update()">
+                    <div>
+                        <div>
+                            <mat-form-field class="full-fill">
+                                <input matInput type="text" placeholder="Nombre del Host" formControlName="host" />
+                                <mat-error *ngIf="form.get('host').invalid">El nombre del host es obligatorio</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput type="number" placeholder="Latitud" formControlName="lat" />
+                            <mat-error *ngIf="form.get('lat').invalid">El campo es obligatorio</mat-error>
+                        </mat-form-field>
+                        <div>
+                            <mat-form-field>
+                                <input matInput type="number" placeholder="Longitud" formControlName="lng" />
+                                <mat-error *ngIf="form.get('lng').invalid">El campo es obligatorio</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <br>
+                        <button mat-stroked-button type="button" (click)="filePicker.click()">Seleccionar imagen</button>
+                        <input type="file" #filePicker (change)="onImagePicked($event)" />
+                        <br>
+                    </div>
+                    <div>
+                        <button mat-raised-button color="warn" type="button" (click)="goBack()">
+              Atrás
+            </button>
+                        <button mat-raised-button color="primary" type="submit">
+              Añadir
+            </button>
+                    </div>
+                </form>
+            </mat-card>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="input-group col-6 mb-2">
-          <div class="">
-            <input
-              type="file"
-              name="archivo"
-              (change)="onFileSelected($event.target.files[0])"
-            />
-          </div>
-        </div>
-        <div
-          class="alert alert-danger col-6 mb-2"
-        >
-          <p><small> No ha seleccionado ninguna imagen </small></p>
-        </div>
-        <!-- <div><img [src]="'rack.img'" alt="" /></div> -->
-      </div>
-      <div class="form-row">
-        <button
-          type="button"
-          class="btn btn-dark"
-          (click)="goBack()"
-          style="background-color: #639ea9"
-        >
-          Atrás
-        </button>
-        <button
-          type="submit"
-          class="btn btn-dark"
-          [disabled]="!updateRackForm.form.valid"
-          style="background-color: #639ea9"
-        >
-          Actualizar
-        </button>
-        <button
-          type="button"
-          class="btn btn-dark"
-          (click)="delete()"
-          style="background-color: #639ea9"
-        >
-          Borrar
-        </button>
-      </div>
-      <div [hidden]="!enviado">
-        <p>{{ mensaje }}</p>
-        <div class="btn-group btn-group-sm">
-          <button type="button" class="btn btn-dark" (click)="goBack()">
-            Back
-          </button>
-        </div>
-      </div>
-  </div>
-</div>
+    </mat-card-content>
+</mat-card>

@@ -48,9 +48,19 @@ export class RackService {
     return this.http.get<Rack>(url);
   }
 
-  crearRack(rack: Rack): Observable<Rack> {
-    return this.http.post<Rack>(`${this.racksUrl}/racks`, rack, httpOptions);
+  addRack(host: string, lat: any, lng: any, archivo: File): Observable<any> {
+    const rackData = new FormData();
+    const id: any = 0;
+    rackData.append('host', host);
+    rackData.append('lat', lat);
+    rackData.append('lng', lng);
+    rackData.append('id', id);
+    rackData.append('archivo', archivo, archivo.name);
+    return this.http.post(`${this.racksUrl}/racks`, rackData);
   }
+  // crearRack(rack: Rack): Observable<Rack> {
+  //   return this.http.post<Rack>(`${this.racksUrl}/racks`, rack, httpOptions);
+  // }
 
   borraRack(rack: Rack | number): Observable<Rack> {
     const id = typeof rack === 'number' ? rack : rack.id;
