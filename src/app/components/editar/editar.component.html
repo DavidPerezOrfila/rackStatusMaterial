@@ -1,50 +1,92 @@
 <mat-card class="card">
-    <mat-card-title style="text-align:center; color: #f5f3ea" class="title">
-        Nuevo Rack</mat-card-title>
-    <mat-card-content>
-        <div *ngIf="enviado" class="alert alert-success">
-            <p>{{ mensaje }}</p>
-            <button mat-raised-button color="warn" type="button" (click)="goBack()">
+  <mat-card-title style="text-align:center; color: #f5f3ea" class="title">
+    editar Rack</mat-card-title
+  >
+  <mat-card-content>
+    <div *ngIf="enviado" class="alert alert-success">
+      <p>{{ mensaje }}</p>
+      <button mat-raised-button color="warn" type="button" (click)="goBack()">
         Atrás
       </button>
-        </div>
-        <div [hidden]="enviado">
-            <mat-card class="card-content">
-                <form [formGroup]="form" (submit)="update()">
-                    <div>
-                        <div>
-                            <mat-form-field class="full-fill">
-                                <input matInput type="text" placeholder="Nombre del Host" formControlName="host" />
-                                <mat-error *ngIf="form.get('host').invalid">El nombre del host es obligatorio</mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div>
-                        <mat-form-field>
-                            <input matInput type="number" placeholder="Latitud" formControlName="lat" />
-                            <mat-error *ngIf="form.get('lat').invalid">El campo es obligatorio</mat-error>
-                        </mat-form-field>
-                        <div>
-                            <mat-form-field>
-                                <input matInput type="number" placeholder="Longitud" formControlName="lng" />
-                                <mat-error *ngIf="form.get('lng').invalid">El campo es obligatorio</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <br>
-                        <button mat-stroked-button type="button" (click)="filePicker.click()">Seleccionar imagen</button>
-                        <input type="file" #filePicker (change)="onImagePicked($event)" />
-                        <br>
-                    </div>
-                    <div>
-                        <button mat-raised-button color="warn" type="button" (click)="goBack()">
+    </div>
+    <div [hidden]="enviado">
+      <mat-card class="card-content">
+        <form [formGroup]="form" (submit)="update()">
+          <div>
+            <div>
+              <mat-form-field class="full-fill">
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Nombre del Host"
+                  formControlName="host"
+                />
+                <mat-error *ngIf="form.get('host').invalid"
+                  >El nombre del host es obligatorio</mat-error
+                >
+              </mat-form-field>
+              <img [src]="" alt="" />
+            </div>
+          </div>
+          <div>
+            <mat-form-field>
+              <input
+                matInput
+                type="number"
+                placeholder="Latitud"
+                formControlName="lat"
+              />
+              <mat-error *ngIf="form.get('lat').invalid"
+                >El campo es obligatorio</mat-error
+              >
+            </mat-form-field>
+            <div>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="number"
+                  placeholder="Longitud"
+                  formControlName="lng"
+                />
+                <mat-error *ngIf="form.get('lng').invalid"
+                  >El campo es obligatorio</mat-error
+                >
+              </mat-form-field>
+            </div>
+            <br />
+            <button
+              mat-stroked-button
+              type="button"
+              (click)="filePicker.click()"
+            >
+              Seleccionar imagen
+            </button>
+            <input type="file" #filePicker (change)="onImagePicked($event)" />
+            <br />
+          </div>
+          <div>
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="goBack()"
+            >
               Atrás
             </button>
-                        <button mat-raised-button color="primary" type="submit">
+            <button mat-raised-button color="primary" type="submit">
               Añadir
             </button>
-                    </div>
-                </form>
-            </mat-card>
-        </div>
-    </mat-card-content>
+            <button
+              mat-raised-button
+              color="accent"
+              type="button"
+              (click)="delete()"
+            >
+              Borrar
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </mat-card-content>
 </mat-card>

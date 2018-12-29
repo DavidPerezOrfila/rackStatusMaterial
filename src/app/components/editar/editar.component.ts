@@ -2,8 +2,9 @@ import { RackService } from './../../rack.service';
 import { Rack } from './../shared/models/rack';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { mimeType } from '../crear/mimetype.validator';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-editar',
@@ -25,7 +26,50 @@ export class EditarComponent implements OnInit {
 
   ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get(`id`);
-    this.rackService.getRack(id).subscribe(data => (this.rack = data));
+
+    this.form = new FormGroup({
+      host: new FormControl(this.rack.host, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
+      lat: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      lng: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      id: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      ico: new FormControl(null),
+      img: new FormControl(null),
+      info: new FormControl(null),
+      archivo: new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [mimeType]
+      })
+    });
+    this.rackService.getRack(id).subscribe(
+      data => (
+        (this.rack = {
+          host: data.host,
+          lat: data.lat,
+          lng: data.lng,
+          ico: data.ico,
+          id: data.id,
+          img: data.img,
+          info: data.info
+        }),
+        this.form.setValue({
+          host: this.rack.host,
+          lat: this.rack.lat,
+          lng: this.rack.lng,
+          ico: this.rack.ico,
+          id: this.rack.id,
+          img: this.rack.img,
+          info: this.rack.info
+        })
+      )
+    );
   }
 
   onImagePicked(event: Event) {
