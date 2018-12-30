@@ -69,8 +69,24 @@ export class RackService {
     return this.http.delete<Rack>(url, httpOptions);
   }
 
-  actualizaRack(rack: Rack): Observable<any> {
-    const id = rack.id;
-    return this.http.put(`${this.racksUrl}/racks/${id}`, rack, httpOptions);
+  actualizaRack(
+    id: number,
+    host: string,
+    lat: any,
+    lng: any,
+    archivo: File | string
+  ): Observable<any> {
+    // tslint:disable-next-line:prefer-const
+    let rackData: Rack | FormData;
+
+    if (typeof archivo === 'object') {
+      rackData = new FormData();
+      rackData.append('host', host);
+      rackData.append('lat', lat);
+      rackData.append('lng', lng);
+      rackData.append('archivo', archivo, archivo.name);
+    }
+
+    return this.http.put(`${this.racksUrl}/racks/${id}`, rackData);
   }
 }

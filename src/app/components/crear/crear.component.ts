@@ -1,6 +1,7 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RackService } from './../../rack.service';
 import { Rack } from './../shared/models/rack';
-import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { mimeType } from './mimetype.validator';
@@ -16,31 +17,39 @@ export class CrearComponent implements OnInit {
   mensaje: string;
   form: FormGroup;
   imgPreview: string;
+  private mode = 'create';
 
-  constructor(private rackService: RackService, private location: Location) {}
+  constructor(
+    private rackService: RackService,
+    private location: Location,
+    public route: ActivatedRoute
+  ) {}
 
   nouRack(): void {
     this.enviado = false;
     this.rack = new Rack();
   }
 
-  addRack() {
+  onSaveRack() {
     if (this.form.invalid) {
       return;
     }
-    this.rack.id = 0;
-    this.enviado = true;
-    this.save();
-    this.mensaje = 'Host creado!';
-
-    // this.location.back();
+    if (this.mode === 'create') {
+      this.rack.id = 0;
+      this.enviado = true;
+      this.save();
+      this.mensaje = 'Host creado!';
+    } else {
+      this.update();
+      this.mensaje = 'Host actualizado!';
+    }
   }
 
   goBack(): void {
     this.location.back();
   }
 
-  private save(): void {
+  save(): void {
     this.rackService
       .addRack(
         this.form.value.host,
@@ -49,6 +58,26 @@ export class CrearComponent implements OnInit {
         this.form.value.archivo
       )
       .subscribe();
+  }
+
+  update(): void {
+    this.enviado = true;
+    this.rackService
+      .actualizaRack(
+        this.rack.id,
+        this.form.value.host,
+        this.form.value.lat,
+        this.form.value.lng,
+        this.form.value.archivo
+      )
+      .subscribe(() => (this.mensaje = 'Host actualizado correctamente'));
+  }
+
+  delete(): void {
+    this.enviado = true;
+    this.rackService
+      .borraRack(this.rack.id)
+      .subscribe(() => (this.mensaje = 'Host borrado correctamente'));
   }
 
   onImagePicked(event: Event) {
@@ -79,6 +108,37 @@ export class CrearComponent implements OnInit {
         validators: [Validators.required],
         asyncValidators: [mimeType]
       })
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('id')) {
+        this.mode = 'edit';
+        this.rack.id = Number(paramMap.get('id'));
+        console.log(this.rack.id);
+        this.rackService.getRack(this.rack.id).subscribe(data => {
+          this.rack = {
+            host: data.host,
+            lat: data.lat,
+            lng: data.lng,
+            ico: data.ico,
+            id: data.id,
+            img: data.img,
+            info: data.info
+          };
+          this.form.setValue({
+            host: this.rack.host,
+            lat: this.rack.lat,
+            lng: this.rack.lng,
+            // ico: this.rack.ico,
+            // id: this.rack.id,
+            img: this.rack.img,
+            archivo: this.rack.img
+            // info: this.rack.info
+          });
+        });
+      } else {
+        this.mode = 'create';
+        this.rack.id = null;
+      }
     });
   }
 }
