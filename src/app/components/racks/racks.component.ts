@@ -13,7 +13,6 @@ export class RacksComponent implements OnInit {
   listado = this.rackService.getListado().subscribe(data => {
     const dataArray = Object.keys(data).map(i => data[i]);
     this.racks = dataArray;
-    console.log(this.racks);
   });
   dataSource = new MatTableDataSource<Rack>(this.racks);
   displayedColumns: string[] = [

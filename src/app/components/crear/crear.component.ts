@@ -17,7 +17,7 @@ export class CrearComponent implements OnInit {
   mensaje: string;
   form: FormGroup;
   imgPreview: string;
-  private mode = 'create';
+  mode = 'create';
 
   constructor(
     private rackService: RackService,
@@ -113,7 +113,6 @@ export class CrearComponent implements OnInit {
       if (paramMap.has('id')) {
         this.mode = 'edit';
         this.rack.id = Number(paramMap.get('id'));
-        console.log(this.rack.id);
         this.rackService.getRack(this.rack.id).subscribe(data => {
           this.rack = {
             host: data.host,
@@ -130,7 +129,7 @@ export class CrearComponent implements OnInit {
             lng: this.rack.lng,
             // ico: this.rack.ico,
             // id: this.rack.id,
-            img: this.rack.img,
+            // img: this.rack.img,
             archivo: this.rack.img
             // info: this.rack.info
           });

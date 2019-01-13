@@ -1,0 +1,23 @@
+#sidebar {
+    width: 20%;
+    float: left;
+}
+
+.drag {
+    cursor: pointer;
+}
+
+#data {
+    width: 90%;
+    height: 130px;
+}
+
+#main {
+    width: 100%;
+}
+
+#map {
+    width: 65%;
+    height: 300px;
+    margin: auto;
+}

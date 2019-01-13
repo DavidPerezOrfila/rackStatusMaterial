@@ -38,7 +38,7 @@ export class EditarComponent implements OnInit {
     console.log(this.form);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     const id = +this.route.snapshot.paramMap.get(`id`);
 
     this.form = new FormGroup({
