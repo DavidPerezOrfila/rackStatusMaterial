@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { icon, Marker } from 'leaflet';
 import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
 import { RackService } from '../rack.service';
@@ -14,6 +15,8 @@ export class MapComponent implements OnInit {
   imageUrl: string;
   w = 2048;
   h = 1152;
+  markerLat: number;
+  markerLng: number;
 
   constructor(
     private rackService: RackService,
@@ -33,10 +36,10 @@ export class MapComponent implements OnInit {
         info: data.info
       };
       this.imageUrl = this.rack.img;
-      this.addMap(this.imageUrl);
+      this.addMap(this.imageUrl, this.rack);
     });
   }
-  addMap(imagen: string) {
+  addMap(imagen: string, rack: Rack) {
     const map = L.map('map', {
       minZoom: 2,
       maxZoom: 5,
@@ -44,21 +47,53 @@ export class MapComponent implements OnInit {
       zoom: 3,
       crs: L.CRS.Simple
     });
+    const markers: any = [];
     const southWest = map.unproject([0, this.h], map.getMaxZoom());
     const northEast = map.unproject([this.w, 0], map.getMaxZoom());
     const bounds = new L.LatLngBounds(southWest, northEast);
-    console.log(imagen);
     L.imageOverlay(imagen, bounds).addTo(map);
-
     map.setMaxBounds(bounds);
-  }
-  addItem(map, markers, item) {
-    const name = item.name;
-    const position = L.latLng([item.position.lat, item.position.lng]);
+    // tslint:disable-next-line:prefer-const
+    const iconRetinaUrl = 'assets/marker-icon-2x.png';
+    const iconUrl = 'assets/marker-icon.png';
+    const shadowUrl = 'assets/marker-shadow.png';
+    const iconDefault = icon({
+      iconRetinaUrl,
+      iconUrl,
+      shadowUrl,
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      tooltipAnchor: [16, -28],
+      shadowSize: [41, 41]
+    });
+    Marker.prototype.options.icon = iconDefault;
+
+    let position;
+    if (rack.lat && rack.lng !== 0) {
+      position = L.latLng([rack.lat, rack.lng]);
+    }
     const options = { draggable: true };
-    const marker: L.Marker = L.marker(position, options)
-      .addTo(map)
-      .bindPopup(name);
-    markers.push(marker);
+    const marker: L.Marker = L.marker(position, options);
+    marker.addTo(map).bindPopup(rack.host);
+
+    const omc = function onMapClick(e) {
+      marker.setLatLng(e.latlng);
+      // .setContent('You clicked the map at ' + e.latlng.toString())
+      // .openOn(map);
+      const cadena = e.latlng
+        .toString()
+        .split(',')
+        .toString()
+        .split('(')
+        .toString()
+        .split(')');
+      const cadena1 = cadena.toString([0]).split(',');
+      rack.lat = cadena1[1];
+      rack.lng = cadena1[2];
+      console.log(rack);
+    };
+    map.on('click', omc);
+    console.log(marker);
   }
 }

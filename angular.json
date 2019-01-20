@@ -76,11 +76,15 @@
                             "src/styles.css"
                         ],
                         "scripts": [],
-                        "assets": [{
-                            "glob": "**/*",
-                            "input": "./node_modules/leaflet/dist/images",
-                            "output": "leaflet/"
-                        }, "src/favicon.ico", "src/assets"]
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets",
+                            {
+                                "glob": "**/*",
+                                "input": "./node_modules/leaflet/dist/images/",
+                                "output": "leaflet/"
+                            }
+                        ]
                     }
                 },
                 "lint": {
