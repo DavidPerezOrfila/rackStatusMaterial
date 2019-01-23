@@ -74,6 +74,7 @@ export class RackService {
     host: string,
     lat: any,
     lng: any,
+    img: string,
     archivo: File | string
   ): Observable<any> {
     // tslint:disable-next-line:prefer-const
@@ -83,6 +84,7 @@ export class RackService {
       rackData = new FormData();
       rackData.append('host', host);
       rackData.append('lat', lat);
+      rackData.append('img', img);
       rackData.append('lng', lng);
       rackData.append('archivo', archivo, archivo.name);
     }

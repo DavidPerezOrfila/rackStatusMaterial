@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { icon, Marker } from 'leaflet';
 import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
@@ -11,20 +11,23 @@ import { Rack } from '../components/shared/models/rack';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  // tslint:disable-next-line:no-output-on-prefix
+  @Output() change: EventEmitter<any>;
   rack = new Rack();
   imageUrl: string;
   w = 2048;
   h = 1152;
   markerLat: number;
   markerLng: number;
+  @Input() mode = 'edit';
 
-  constructor(
-    private rackService: RackService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private rackService: RackService, private route: ActivatedRoute) {
+    this.change = new EventEmitter();
+  }
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get(`id`);
+
     this.rackService.getRack(id).subscribe(data => {
       this.rack = {
         host: data.host,
@@ -47,13 +50,11 @@ export class MapComponent implements OnInit {
       zoom: 3,
       crs: L.CRS.Simple
     });
-    const markers: any = [];
     const southWest = map.unproject([0, this.h], map.getMaxZoom());
     const northEast = map.unproject([this.w, 0], map.getMaxZoom());
     const bounds = new L.LatLngBounds(southWest, northEast);
     L.imageOverlay(imagen, bounds).addTo(map);
     map.setMaxBounds(bounds);
-    // tslint:disable-next-line:prefer-const
     const iconRetinaUrl = 'assets/marker-icon-2x.png';
     const iconUrl = 'assets/marker-icon.png';
     const shadowUrl = 'assets/marker-shadow.png';
@@ -79,8 +80,6 @@ export class MapComponent implements OnInit {
 
     const omc = function onMapClick(e) {
       marker.setLatLng(e.latlng);
-      // .setContent('You clicked the map at ' + e.latlng.toString())
-      // .openOn(map);
       const cadena = e.latlng
         .toString()
         .split(',')
@@ -91,9 +90,9 @@ export class MapComponent implements OnInit {
       const cadena1 = cadena.toString([0]).split(',');
       rack.lat = cadena1[1];
       rack.lng = cadena1[2];
-      console.log(rack);
+      const latLng = { lat: rack.lat, lng: rack.lng };
+      console.log(latLng);
     };
     map.on('click', omc);
-    console.log(marker);
   }
 }

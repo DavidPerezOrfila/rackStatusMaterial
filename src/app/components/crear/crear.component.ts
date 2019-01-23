@@ -18,16 +18,23 @@ export class CrearComponent implements OnInit {
   form: FormGroup;
   imgPreview: string;
   mode = 'create';
-
+  coords: any = {};
   constructor(
     private rackService: RackService,
     private location: Location,
     public route: ActivatedRoute
-  ) {}
+  ) {
+    this.onMarkerChanges(this.coords);
+  }
 
   nouRack(): void {
     this.enviado = false;
     this.rack = new Rack();
+  }
+
+  onMarkerChanges(coord?: any) {
+    this.coords = coord;
+    console.log(this.coords);
   }
 
   onSaveRack() {
@@ -68,6 +75,7 @@ export class CrearComponent implements OnInit {
         this.form.value.host,
         this.form.value.lat,
         this.form.value.lng,
+        this.rack.img,
         this.form.value.archivo
       )
       .subscribe(() => (this.mensaje = 'Host actualizado correctamente'));

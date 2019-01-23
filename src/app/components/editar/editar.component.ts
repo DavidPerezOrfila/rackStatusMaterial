@@ -83,13 +83,6 @@ export class EditarComponent implements OnInit {
     });
   }
 
-  // update(): void {
-  //   this.enviado = true;
-  //   this.rackService
-  //     .actualizaRack(this.rack)
-  //     .subscribe(() => (this.mensaje = 'Host actualizado correctamente'));
-  // }
-
   delete(): void {
     this.enviado = true;
     this.rackService

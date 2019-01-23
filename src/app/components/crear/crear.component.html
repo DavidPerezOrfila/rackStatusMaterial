@@ -38,6 +38,7 @@
                         <br />
                     </div>
                     <br />
+                    <a [href]="this.rack.img"></a>
                     <div class="image-preview" *ngIf="imgPreview !== '' && imgPreview && form.get('archivo').valid">
                         <img [src]="imgPreview" [alt]="form.value.host" />
                     </div>
@@ -60,6 +61,6 @@
     </mat-card-content>
 
     <mat-card [hidden]="mode === 'create' || enviado || this.rack.img === null" class="card-content">
-        <app-map></app-map>
+        <app-map (change)="onMarkerChanges($event)" (change)="mode"></app-map>
     </mat-card>
 </mat-card>
