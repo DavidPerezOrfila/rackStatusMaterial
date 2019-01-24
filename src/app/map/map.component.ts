@@ -91,7 +91,6 @@ export class MapComponent implements OnInit {
       rack.lat = cadena1[1];
       rack.lng = cadena1[2];
       const latLng = { lat: rack.lat, lng: rack.lng };
-      console.log(latLng);
     };
     map.on('click', omc);
   }
