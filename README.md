@@ -6,10 +6,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Remember to do `npm install` to install the necessary dependencies.
 
-## Public folder & images
-
-Remember to create a new folders in the root of the project (public/images) for save your uploaded images.
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
