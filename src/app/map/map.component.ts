@@ -12,14 +12,13 @@ import { Rack } from '../components/shared/models/rack';
 })
 export class MapComponent implements OnInit {
   // tslint:disable-next-line:no-output-on-prefix
-  @Output() change: EventEmitter<any>;
+  @Output() change: EventEmitter<any> = new EventEmitter();
   rack = new Rack();
   imageUrl: string;
   w = 2048;
   h = 1152;
   markerLat: number;
   markerLng: number;
-  @Input() mode = 'edit';
 
   constructor(private rackService: RackService, private route: ActivatedRoute) {
     this.change = new EventEmitter();
@@ -78,7 +77,7 @@ export class MapComponent implements OnInit {
     const marker: L.Marker = L.marker(position, options);
     marker.addTo(map).bindPopup(rack.host);
 
-    const omc = function onMapClick(e) {
+    const omc = (e: any) => {
       marker.setLatLng(e.latlng);
       const cadena = e.latlng
         .toString()
@@ -90,7 +89,8 @@ export class MapComponent implements OnInit {
       const cadena1 = cadena.toString([0]).split(',');
       rack.lat = cadena1[1];
       rack.lng = cadena1[2];
-      const latLng = { lat: rack.lat, lng: rack.lng };
+      const coords = { lat: rack.lat, lng: rack.lng };
+      this.change.emit(coords);
     };
     map.on('click', omc);
   }

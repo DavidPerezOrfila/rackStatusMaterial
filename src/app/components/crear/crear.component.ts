@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { RackService } from './../../rack.service';
 import { Rack } from './../shared/models/rack';
@@ -18,7 +18,7 @@ export class CrearComponent implements OnInit {
   form: FormGroup;
   imgPreview: string;
   mode = 'create';
-  coords: any = {};
+  @Input() coords: any = {};
   constructor(
     private rackService: RackService,
     private location: Location,
@@ -69,6 +69,11 @@ export class CrearComponent implements OnInit {
 
   update(): void {
     this.enviado = true;
+    if (this.form.value.lat !== 0 && this.form.value.lng !== 0) {
+      this.form.value.lat = this.coords.lat;
+      this.form.value.lng = this.coords.lng;
+      this.save();
+    }
     this.rackService
       .actualizaRack(
         this.rack.id,
@@ -97,8 +102,6 @@ export class CrearComponent implements OnInit {
       this.imgPreview = <string>reader.result;
     };
     reader.readAsDataURL(file);
-    console.log(file);
-    console.log(this.form);
   }
 
   ngOnInit() {
