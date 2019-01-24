@@ -1,4 +1,3 @@
-import { MapComponent } from './map/map.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -18,9 +17,10 @@ import {
 // Components
 import { AppComponent } from './app.component';
 import { RacksComponent } from './components/racks/racks.component';
-import { EditarComponent } from './components/editar/editar.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { CrearComponent } from './components/crear/crear.component';
+import { EditarComponent } from './components/editar/editar.component';
+import { MapComponent } from './components/map/map.component';
 
 // Services
 import { RackService } from './rack.service';

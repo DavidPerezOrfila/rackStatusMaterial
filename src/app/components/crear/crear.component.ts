@@ -72,7 +72,6 @@ export class CrearComponent implements OnInit {
     if (this.form.value.lat !== 0 && this.form.value.lng !== 0) {
       this.form.value.lat = this.coords.lat;
       this.form.value.lng = this.coords.lng;
-      this.save();
     }
     if (this.form.value.lat === 0 && this.form.value.lng === 0) {
       this.form.value.lat = 1;
