@@ -32,7 +32,7 @@ export class CrearComponent implements OnInit {
     this.rack = new Rack();
   }
 
-  onMarkerChanges(coord?: any) {
+  onMarkerChanges(coord: any) {
     this.coords = coord;
     console.log(this.coords);
   }
@@ -74,6 +74,11 @@ export class CrearComponent implements OnInit {
       this.form.value.lng = this.coords.lng;
       this.save();
     }
+    if (this.form.value.lat === 0 && this.form.value.lng === 0) {
+      this.form.value.lat = 1;
+      this.form.value.lng = 1;
+    }
+
     this.rackService
       .actualizaRack(
         this.rack.id,
