@@ -2,8 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { icon, Marker } from 'leaflet';
 import * as L from 'leaflet';
 import { ActivatedRoute } from '@angular/router';
-import { RackService } from '../rack.service';
-import { Rack } from '../components/shared/models/rack';
+import { RackService } from '../../rack.service';
+import { Rack } from '../../components/shared/models/rack';
 
 @Component({
   selector: 'app-map',

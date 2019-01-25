@@ -1,8 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RackService } from '../../rack.service';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import {
+  MatPaginator,
+  MatTableDataSource,
+  MatSort,
+  PageEvent
+} from '@angular/material';
 import { Rack } from '../shared/models/rack';
-
 @Component({
   selector: 'app-racks',
   templateUrl: './racks.component.html',
@@ -14,6 +18,14 @@ export class RacksComponent implements OnInit {
     const dataArray = Object.keys(data).map(i => data[i]);
     this.racks = dataArray;
   });
+  // MatPaginator Inputs
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  // MatPaginator Output
+  pageEvent: PageEvent;
+
   dataSource = new MatTableDataSource<Rack>(this.racks);
   displayedColumns: string[] = [
     'id',
@@ -34,11 +46,7 @@ export class RacksComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // getListado() {
-  //   this.rackService.getListado().subscribe(data => {
-  //     const dataArray = Object.keys(data).map(i => data[i]);
-  //     this.racks = dataArray;
-  //     console.log(this.racks);
-  //   });
-  // }
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  }
 }
