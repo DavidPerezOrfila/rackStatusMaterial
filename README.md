@@ -1,6 +1,6 @@
 # RackStatusMaterial
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
 
 ## NPM
 
@@ -8,9 +8,9 @@ Remember to do `npm install` to install the necessary dependencies.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
 Run `npm run server` for start Express server.
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
