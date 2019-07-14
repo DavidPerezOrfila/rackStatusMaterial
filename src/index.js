@@ -3,9 +3,9 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const corsOptions = {
-    origin: 'http://localhost:4200',
-    optionsSuccessStatus: 200
-}
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200
+};
 
 // Settings
 app.set('port', process.env.PORT || 3000);
@@ -21,5 +21,5 @@ app.use(require('./routes/racks'));
 // Start server
 
 app.listen(app.get('port'), () => {
-    console.log('Server on port', app.get('port'));
+  console.log('Server on port', app.get('port'));
 });
