@@ -4,16 +4,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatButtonModule,
-  MatInputModule,
-  MatCardModule,
-  MatToolbarModule,
-  MatExpansionModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 // Components
 import { AppComponent } from './app.component';
 import { RacksComponent } from './components/racks/racks.component';

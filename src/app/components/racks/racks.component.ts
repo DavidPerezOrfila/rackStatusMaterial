@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RackService } from '../../rack.service';
-import { MatPaginator, MatTableDataSource, MatSort, PageEvent } from '@angular/material';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Rack } from '../shared/models/rack';
 @Component({
   selector: 'app-racks',
