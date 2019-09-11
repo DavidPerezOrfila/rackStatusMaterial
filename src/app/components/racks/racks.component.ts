@@ -24,8 +24,8 @@ export class RacksComponent implements OnInit {
   dataSource = new MatTableDataSource<Rack>(this.racks);
   displayedColumns: string[] = ['id', 'host', 'lat', 'lng', 'ico', 'img', 'info'];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private rackService: RackService) {}
   ngOnInit() {
